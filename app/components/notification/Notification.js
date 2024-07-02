@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 
 const Notify = (msg, type) => {
   if (type === "error") {
-    console.log("update error--- toastify ----");
+    // console.log("update error--- toastify ----");
 
     toast.error(msg, {
       position: "bottom-right",

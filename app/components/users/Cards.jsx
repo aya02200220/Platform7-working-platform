@@ -15,9 +15,16 @@ import Note from "./Note";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
 const Cards = ({ user, fetchUsers }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editData, setEditData] = useState(user);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleEditClick = () => {
     setIsEditModalOpen(true);
@@ -72,6 +79,14 @@ const Cards = ({ user, fetchUsers }) => {
     }
   };
 
+  const handleDeleteClick = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
   const handleDelete = async () => {
     try {
       const response = await fetch(`/api/user`, {
@@ -99,6 +114,7 @@ const Cards = ({ user, fetchUsers }) => {
       console.error("Error deleting user:", error);
       Notify("Error deleting user", "error");
     }
+    handleDialogClose(); // ダイアログを閉じる
   };
 
   return (
@@ -278,6 +294,15 @@ const Cards = ({ user, fetchUsers }) => {
               Cancel
             </Button>
             <Button
+              // onClick={handleDelete}
+              onClick={handleDeleteClick}
+              color="error"
+              variant="contained"
+              sx={{ ml: 2 }}
+            >
+              Delete
+            </Button>
+            <Button
               onClick={handleFormSubmit}
               color="primary"
               variant="contained"
@@ -285,17 +310,30 @@ const Cards = ({ user, fetchUsers }) => {
             >
               Save
             </Button>
-            <Button
-              onClick={handleDelete}
-              color="error"
-              variant="contained"
-              sx={{ ml: 2 }}
-            >
-              Delete
-            </Button>
           </div>
         </Box>
       </Modal>
+
+      <Dialog
+        open={dialogOpen}
+        onClose={handleDialogClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Delete User?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete this user? This action cannot be
+            undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose}>Cancel</Button>
+          <Button onClick={handleDelete} color="error" autoFocus>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
