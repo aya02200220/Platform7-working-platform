@@ -148,46 +148,46 @@ export const User = () => {
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      const response = await fetch("/api/user", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id }),
-      });
+  // const handleDelete = async (id) => {
+  //   try {
+  //     const response = await fetch("/api/user", {
+  //       method: "DELETE",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ id }),
+  //     });
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.message || "Failed to delete user");
-      }
+  //     if (!response.ok) {
+  //       throw new Error(data.message || "Failed to delete user");
+  //     }
 
-      toast.success("User Deleted!", {
-        position: "bottom-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+  //     toast.success("User Deleted!", {
+  //       position: "bottom-right",
+  //       autoClose: 1500,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "light",
+  //     });
 
-      // ユーザーを再度フェッチして表示内容を更新
-      await fetchUsers();
-    } catch (err) {
-      toast.error(err.message, {
-        position: "bottom-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-  };
+  //     // ユーザーを再度フェッチして表示内容を更新
+  //     await fetchUsers();
+  //   } catch (err) {
+  //     toast.error(err.message, {
+  //       position: "bottom-right",
+  //       autoClose: 1500,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "light",
+  //     });
+  //   }
+  // };
 
   return (
     <div className="flex flex-col w-full mx-5 md:w-[680px] max-w-[680px] items-end">
@@ -230,34 +230,37 @@ export const User = () => {
               checked={formData.key}
               onChange={handleChange}
             />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Open Till"
-              name="openTill"
-              checked={formData.openTill}
-              onChange={handleChange}
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Close Till"
-              name="closeTill"
-              checked={formData.closeTill}
-              onChange={handleChange}
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Open Bar"
-              name="openBar"
-              checked={formData.openBar}
-              onChange={handleChange}
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Close Bar"
-              name="closeBar"
-              checked={formData.closeBar}
-              onChange={handleChange}
-            />
+            <div className="flex w-full flex-wrap items-center">
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Open Till"
+                name="openTill"
+                checked={formData.openTill}
+                onChange={handleChange}
+              />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Close Till"
+                name="closeTill"
+                checked={formData.closeTill}
+                onChange={handleChange}
+              />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Open Bar"
+                name="openBar"
+                checked={formData.openBar}
+                onChange={handleChange}
+              />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Close Bar"
+                name="closeBar"
+                checked={formData.closeBar}
+                onChange={handleChange}
+              />
+            </div>
+            <div></div>
             <textarea
               placeholder="Note"
               label="Note"
