@@ -18,6 +18,11 @@ import Checkbox from "@mui/material/Checkbox";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Divider } from "@mui/material";
 
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+
 export const User = () => {
   const [loading, setLoading] = useState(false);
   const [fetchingUsers, setFetchingUsers] = useState(true);
@@ -260,7 +265,33 @@ export const User = () => {
                 onChange={handleChange}
               />
             </div>
-            <div></div>
+            <div>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  Select a Day
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={formData.timeOff.dayOfWeek}
+                  label="day"
+                  onChange={handleChange}
+                >
+                  <MenuItem value={10}>Monday</MenuItem>
+                  <MenuItem value={20}>Tuesday</MenuItem>
+                  <MenuItem value={30}>Wednesday</MenuItem>
+                  <MenuItem value={30}>Thursday</MenuItem>
+                  <MenuItem value={30}>Friday</MenuItem>
+                  <MenuItem value={30}>Saturday</MenuItem>
+                  <MenuItem value={30}>Sunday</MenuItem>
+                </Select>
+              </FormControl>
+              {/* const timeOffSchema = new Schema({
+  dayOfWeek: { type: String, required: true }, // 曜日 (e.g., "Monday", "Tuesday", etc.)
+  startTime: { type: String, required: true }, // 開始時間 (e.g., "09:00")
+  endTime: { type: String, required: true }, // 終了時間 (e.g., "17:00")
+}); */}
+            </div>
             <textarea
               placeholder="Note"
               label="Note"
